@@ -1,0 +1,46 @@
+-- 1.
+CREATE DATABASE Lista_Pracownikow;
+
+
+USE Lista_Pracownikow;
+
+-- 2.
+CREATE TABLE Pracownicy (
+    ID INT PRIMARY KEY,
+    Imie VARCHAR(50) NOT NULL,
+    Nazwisko VARCHAR(50) NOT NULL,
+    Stanowisko VARCHAR(100) NOT NULL,
+    Dzial VARCHAR(100) NOT NULL
+);
+
+-- 3.
+INSERT INTO Pracownicy (ID, Imie, Nazwisko, Stanowisko, Dzial) VALUES
+(1, 'Anna', 'Kowalska', 'Specjalista ds. marketingu', 'Marketing'),
+(2, 'Tomasz', 'Nowak', 'Programista', 'IT'),
+(3, 'Julia', 'Wiśniewska', 'Księgowa', 'Finanse'),
+(4, 'Kamil', 'Wójcik', 'HR Business Partner', 'HR'),
+(5, 'Ewa', 'Dąbrowska', 'Analityk danych', 'IT');
+
+-- 4.
+SELECT * FROM Pracownicy;
+
+-- 5.
+ALTER TABLE Pracownicy
+ADD Data_zatrudnienia DATE;
+
+-- 6.
+INSERT INTO Pracownicy (ID, Imie, Nazwisko, Stanowisko, Dzial, Data_zatrudnienia)
+VALUES (6, 'Marek', 'Zieliński', 'Administrator systemów', 'IT', '2023-06-01');
+
+-- 7.
+SELECT * FROM Pracownicy;
+
+-- 8.
+UPDATE Pracownicy SET Data_zatrudnienia = '2021-03-10' WHERE ID = 1;
+UPDATE Pracownicy SET Data_zatrudnienia = '2022-01-15' WHERE ID = 2;
+UPDATE Pracownicy SET Data_zatrudnienia = '2020-11-05' WHERE ID = 3;
+UPDATE Pracownicy SET Data_zatrudnienia = '2021-09-01' WHERE ID = 4;
+UPDATE Pracownicy SET Data_zatrudnienia = '2022-06-20' WHERE ID = 5;
+
+-- 9.
+SELECT * FROM Pracownicy;
