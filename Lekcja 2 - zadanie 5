@@ -1,0 +1,43 @@
+-- 1.
+CREATE DATABASE Moje_zainteresowania;
+
+
+USE Moje_zainteresowania;
+
+-- 2.
+CREATE TABLE Zainteresowania (
+    ID INT AUTO_INCREMENT PRIMARY KEY,
+    Nazwa VARCHAR(100) NOT NULL,
+    Opis TEXT NOT NULL,
+    Data_realizacji DATE
+);
+
+-- 3.
+INSERT INTO Zainteresowania (Nazwa, Opis) VALUES
+('Fotografia', 'Nauka robienia zdjęć lustrzanką.'),
+('Gotowanie', 'Eksperymentowanie z kuchniami świata.'),
+('Programowanie', 'Tworzenie modeli.'),
+('Wspinaczka', 'Wędrówki po górach i skałkach.'),
+('Gra na gitarze', 'Ćwiczenie akordów.');
+
+-- 4.
+SELECT * FROM Zainteresowania;
+
+-- 5.
+INSERT INTO Zainteresowania (Nazwa, Opis, Data_realizacji)
+VALUES ('Ogród warzywny', 'Zakładanie przydomowego ogródka.', '2024-04-15');
+
+-- 6.
+UPDATE Zainteresowania
+SET Data_realizacji = '2023-08-20'
+WHERE ID = 4;
+
+-- 7.
+SELECT * FROM Zainteresowania;
+
+-- 8.
+DELETE FROM Zainteresowania
+WHERE Nazwa IS NULL OR Opis IS NULL OR Data_realizacji IS NULL;
+
+-- 9.
+SELECT * FROM Zainteresowania;
