@@ -1,0 +1,62 @@
+-- 1.
+CREATE DATABASE School_Coding;
+
+
+USE School_Coding;
+
+-- 2.
+CREATE TABLE Mentors (
+    ID INT PRIMARY KEY,
+    Imie VARCHAR(50) NOT NULL,
+    Nazwisko VARCHAR(50) NOT NULL,
+    Specjalizacja VARCHAR(100) NOT NULL,
+    Data_zatrudnienia DATE NOT NULL,
+    Data_zwolnienia DATE
+);
+
+-- 3.
+INSERT INTO Mentors (ID, Imie, Nazwisko, Specjalizacja, Data_zatrudnienia, Data_zwolnienia) VALUES
+(1, 'Anna', 'Kowalska', 'Python', '2022-01-10', '2024-02-28'),
+(2, 'Tomasz', 'Nowak', 'Java', '2021-05-14', '2023-12-01'),
+(3, 'Julia', 'Wiśniewska', 'JavaScript', '2020-09-03', '2022-10-10'),
+(4, 'Kamil', 'Wójcik', 'C++', '2023-02-01', '2024-01-15'),
+(5, 'Magda', 'Zielińska', 'SQL', '2022-07-20', '2023-11-30'),
+(6, 'Robert', 'Kamiński', 'PHP', '2021-03-22', '2022-12-15'),
+(7, 'Ewa', 'Dąbrowska', 'HTML/CSS', '2020-11-01', '2021-12-31'),
+(8, 'Michał', 'Lewandowski', 'Python', '2023-01-10', '2024-04-04'),
+(9, 'Karolina', 'Szymańska', 'Go', '2022-05-15', '2023-09-09'),
+(10, 'Jan', 'Woźniak', 'C#', '2021-08-18', '2022-11-11');
+
+-- 4.
+SELECT * FROM Mentors;
+
+-- 5.
+UPDATE Mentors
+SET Nazwisko = 'Nowicka'
+WHERE ID = 5;
+
+-- 6.
+SELECT * FROM Mentors
+WHERE ID = 5;
+
+-- 7.
+UPDATE Mentors
+SET Specjalizacja = 'Rust'
+WHERE ID = 9;
+
+-- 8.
+SELECT * FROM Mentors
+WHERE ID = 9;
+
+-- 9.
+ALTER TABLE Mentors
+ADD Wynagrodzenie DECIMAL(10,2) CHECK (Wynagrodzenie >= 0);
+
+-- 10.
+UPDATE Mentors
+SET Wynagrodzenie = 1000.00
+WHERE ID IN (1, 2, 3);
+
+-- 11.
+SELECT * FROM Mentors
+WHERE ID IN (1, 2, 3);
