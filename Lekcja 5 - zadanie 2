@@ -1,0 +1,12 @@
+-- a.
+SELECT ROUND(AVG(age), 2) AS sredni_wiek_zaokraglony
+FROM aggregates.batman;
+
+-- b.
+SELECT ABS(-3) AS wartosc_bezwzgledna;
+
+-- c.
+SELECT 2 * 3 AS wynik_mnozenia;
+
+-- d.
+SELECT 6 / 2 AS wynik_dzielenia;
