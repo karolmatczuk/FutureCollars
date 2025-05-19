@@ -1,0 +1,54 @@
+-- 1.
+CREATE DATABASE Biblioteka;
+-- Użyj utworzonej bazy danych
+USE Biblioteka;
+
+-- 2.
+CREATE TABLE Biblioteczka (
+    ID INT,
+    Tytul TEXT,
+    Data_zakupu DATE
+);
+
+-- 3.
+INSERT INTO Biblioteczka (ID, Tytul, Data_zakupu)
+VALUES (1, 'Wiedźmin: Ostatnie życzenie', '2023-06-01');
+
+-- 4.
+SELECT * FROM Biblioteczka;
+
+-- 5.
+INSERT INTO Biblioteczka (ID, Tytul, Data_zakupu)
+VALUES 
+(2, 'Duma i uprzedzenie', '2022-12-15'),
+(3, 'Zbrodnia i kara', '2021-10-20');
+
+-- 6.
+SET SQL_SAFE_UPDATES = 0;
+UPDATE Biblioteczka
+SET Tytul = 'Zmierzch', Data_zakupu = '2024-05-10'
+WHERE ID = 1;
+
+-- 7.
+ALTER TABLE Biblioteczka
+ADD Autor TEXT;
+
+-- 8.
+UPDATE Biblioteczka
+SET Autor = 'Stephenie Meyer'
+WHERE ID = 1;
+
+UPDATE Biblioteczka
+SET Autor = 'Jane Austen'
+WHERE ID = 2;
+
+UPDATE Biblioteczka
+SET Autor = 'Fiodor Dostojewski'
+WHERE ID = 3;
+
+-- 9.
+DELETE FROM Biblioteczka
+WHERE ID IN (2, 3);
+
+-- 10
+SELECT Autor FROM Biblioteczka;
