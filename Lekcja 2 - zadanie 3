@@ -1,0 +1,50 @@
+-- 1.
+CREATE DATABASE Lista_Prezentow;
+
+
+USE Lista_Prezentow;
+
+-- 2.
+CREATE TABLE Prezenty_2020 (
+    ID INT PRIMARY KEY,
+    Imie_obdarowanego VARCHAR(50) NOT NULL,
+    Pomysl_na_prezent VARCHAR(100) NOT NULL,
+    Cena DECIMAL(10,2) CHECK (Cena >= 0),
+    Miejsce_zakupu VARCHAR(100) NOT NULL
+);
+
+-- 3.
+INSERT INTO Prezenty_2020 (ID, Imie_obdarowanego, Pomysl_na_prezent, Cena, Miejsce_zakupu) VALUES
+(1, 'Anna', 'Książka', 45.00, 'Empik'),
+(2, 'Tomasz', 'Zegarek', 250.00, 'Allegro'),
+(3, 'Julia', 'Słuchawki', 120.00, 'Media Markt'),
+(4, 'Kamil', 'Gry planszowe', 90.00, 'Ceneo'),
+(5, 'Ewa', 'Perfumy', 180.00, 'Douglas');
+
+-- 4.
+SELECT * FROM Prezenty_2020;
+
+-- 5.
+UPDATE Prezenty_2020
+SET Pomysl_na_prezent = 'Rower'
+WHERE ID = 3;
+
+-- 6.
+SELECT * FROM Prezenty_2020
+WHERE ID = 3;
+
+-- 7.
+DELETE FROM Prezenty_2020
+WHERE ID = 1;
+
+-- 8.
+SELECT * FROM Prezenty_2020;
+
+-- 9.
+ALTER TABLE Prezenty_2020
+DROP COLUMN Miejsce_zakupu;
+
+-- 10.
+SELECT Imie_obdarowanego
+FROM Prezenty_2020
+WHERE ID IN (3, 4, 5);
