@@ -1,6 +1,6 @@
 -- 1.
 CREATE DATABASE Biblioteka;
--- Użyj utworzonej bazy danych
+
 USE Biblioteka;
 
 -- 2.
