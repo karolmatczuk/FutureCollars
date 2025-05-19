@@ -1,0 +1,28 @@
+-- a.
+SELECT 
+  start_date,
+  YEAR(start_date) AS rok,
+  MONTH(start_date) AS miesiac,
+  DAY(start_date) AS dzien
+FROM aggregates.batman;
+
+--b.
+SELECT 
+  start_date,
+  DATE_ADD(start_date, INTERVAL 3 DAY) AS final_date
+FROM aggregates.batman;
+
+--c.
+SELECT CURDATE() AS dzisiejsza_data;
+
+--d.
+SELECT MONTHNAME(CURDATE()) AS nazwa_miesiaca;
+
+--e.
+SELECT 
+  start_date,
+  WEEK(start_date) AS numer_tygodnia,
+  MONTHNAME(start_date) AS nazwa_miesiaca,
+  QUARTER(start_date) AS kwartal,
+  DAYOFYEAR(start_date) AS dzien_roku
+FROM aggregates.batman;
