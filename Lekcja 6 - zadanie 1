@@ -1,0 +1,43 @@
+-- Stworzyłem baze i tabele zgodnie z plikiem dołączonym do lekcji. Nie wrzucam tu treści tego kodu, poniżej tylko treść zadań.
+-- Wprowadzenie
+-- a. 
+SELECT DISTINCT CUST_CODE
+FROM orders
+WHERE ORD_DATE = '2008-01-08';
+
+-- b. 
+SELECT a.AGENT_NAME, c.CUST_NAME, a.WORKING_AREA
+FROM agents AS a
+JOIN customer AS c
+ON a.AGENT_CODE = c.AGENT_CODE;
+
+-- INNER JOIN
+-- a. 
+SELECT c.CUST_CODE, c.CUST_NAME, a.AGENT_NAME AS Salesman
+FROM customer AS c
+INNER JOIN agents AS a
+ON c.AGENT_CODE = a.AGENT_CODE
+WHERE a.COMMISSION > 0.12;
+
+-- b. 
+SELECT o.ORD_NUM, o.ORD_DATE, o.ORD_AMOUNT, o.CUST_CODE AS Customer_name, a.AGENT_NAME AS Salesman, a.COMMISSION
+FROM orders AS o
+INNER JOIN AGENTS AS a
+ON o.AGENT_CODE = a.AGENT_CODE;
+
+-- LEFT JOIN
+-- a. 
+SELECT c.CUST_CODE, c.CUST_NAME, a.AGENT_CODE, a.AGENT_NAME AS Salesman, a.WORKING_AREA
+FROM customer AS c
+LEFT JOIN agents AS a
+ON c.AGENT_CODE = a.AGENT_CODE
+ORDER BY c.CUST_CODE ASC;
+
+-- RIGHT JOIN
+-- a. 
+SELECT a.AGENT_CODE, a.AGENT_NAME AS Salesman, a.WORKING_AREA, COUNT(c.CUST_CODE) AS il_klientow
+FROM customer AS c
+RIGHT JOIN agents AS a
+ON c.AGENT_CODE = a.AGENT_CODE
+GROUP BY a.AGENT_CODE
+ORDER BY a.AGENT_CODE ASC;
