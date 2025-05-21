@@ -1,0 +1,66 @@
+-- 1.
+CREATE DATABASE IF NOT EXISTS Pracownicy;
+
+USE Pracownicy;
+
+DROP TABLE pracownicy;
+-- 2.
+CREATE TABLE Pracownicy (
+  ID INT PRIMARY KEY,
+  Imie VARCHAR(50),
+  Nazwisko VARCHAR(50),
+  Wiek INT CHECK (Wiek > 0),
+  Kurs VARCHAR(50)
+);
+
+-- 3.
+INSERT INTO Pracownicy VALUES (1, 'Anna', 'NOWAK', 34, 'DS.');
+INSERT INTO Pracownicy VALUES (2, 'Roman', 'KOWALSKI', 42, 'DS.');
+INSERT INTO Pracownicy VALUES (3, 'Tomasz', 'WIŚNIEWSKI', 33, 'DS.');
+INSERT INTO Pracownicy VALUES (4, 'Agata', 'WÓJCIK', 43, 'DS.');
+INSERT INTO Pracownicy VALUES (5, 'Elżbieta', 'KOWALCZYK', 28, 'Java');
+INSERT INTO Pracownicy VALUES (6, 'Przemysław', 'KOWALCZYK', 34, 'Java');
+INSERT INTO Pracownicy VALUES (7, 'Robert', 'kOWALCZYK', 35, 'Java');
+INSERT INTO Pracownicy VALUES (8, 'Radosław', 'ZIELIŃSKI', 38, 'Java');
+INSERT INTO Pracownicy VALUES (9, NULL, 'WOŹNIAK', 26, 'Java');
+INSERT INTO Pracownicy VALUES (10, 'Robert', 'SZYMAŃSKI', 34, 'Java');
+INSERT INTO Pracownicy VALUES (11, 'Radosław', 'DĄBROWSKI', 35, NULL);
+INSERT INTO Pracownicy VALUES (12, 'Robert', 'KOZŁOWSKI', NULL, 'UX');
+INSERT INTO Pracownicy VALUES (13, 'Joanna', 'MAZUR', 26, 'UX');
+INSERT INTO Pracownicy VALUES (14, 'Radosław', 'JANKOWSKI', 27, 'UX');
+INSERT INTO Pracownicy VALUES (15, 'Patryk', 'LEWANDOWSKI', 28, 'Tester');
+INSERT INTO Pracownicy VALUES (16, NULL, 'ZIELIŃSKI', 28, 'Tester');
+INSERT INTO Pracownicy VALUES (17, 'Andrzej', 'WOŹNIAK', 31, 'Tester');
+INSERT INTO Pracownicy VALUES (18, 'Andrze', 'LEWANDOWSKI', 30, 'Tester');
+INSERT INTO Pracownicy VALUES (19, 'Roman', 'KOWALCZYK', 39, 'Tester');
+INSERT INTO Pracownicy VALUES (20, 'Ewa', 'WOŹNIAK', 31, 'Tester');
+
+-- 4.
+SELECT *
+FROM pracownicy
+WHERE nazwisko = 'KOWALCZYK';
+
+-- 5.
+SELECT *
+FROM pracownicy
+WHERE wiek BETWEEN 30 AND 40;
+
+-- 6. 
+SELECT *
+FROM pracownicy
+WHERE nazwisko NOT LIKE ('%and%');
+
+-- 7. 
+SELECT *
+FROM pracownicy
+WHERE ID BETWEEN 1 AND 7;
+
+-- 8. 
+SELECT *
+FROM pracownicy
+WHERE Imie IS NULL OR Nazwisko IS NULL OR Wiek IS NULL OR Kurs IS NULL;
+
+-- 9. 
+SELECT *
+FROM pracownicy
+WHERE Kurs IS NULL;
