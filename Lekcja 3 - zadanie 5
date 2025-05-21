@@ -1,0 +1,62 @@
+-- 1.
+CREATE DATABASE IF NOT EXISTS Pracownicy;
+
+USE Pracownicy;
+
+DROP TABLE pracownicy;
+-- 2.
+CREATE TABLE Pracownicy (
+  ID INT PRIMARY KEY,
+  Imie VARCHAR(50),
+  Nazwisko VARCHAR(50),
+  Wiek INT CHECK (Wiek > 0),
+  Kurs VARCHAR(50)
+);
+
+-- 3.
+INSERT INTO Pracownicy VALUES (1, 'Anna', 'NOWAK', 34, 'DS.');
+INSERT INTO Pracownicy VALUES (2, 'Roman', 'KOWALSKI', 42, 'DS.');
+INSERT INTO Pracownicy VALUES (3, 'Tomasz', 'WIŚNIEWSKI', 33, 'DS.');
+INSERT INTO Pracownicy VALUES (4, 'Anna', NULL, 43, 'DS.');
+INSERT INTO Pracownicy VALUES (5, 'Elżbieta', 'KOWALCZYK', NULL, 'Tester');
+INSERT INTO Pracownicy VALUES (6, 'Anna', 'KOWALCZYK', NULL, 'Java');
+INSERT INTO Pracownicy VALUES (7, 'Robert', 'KOWALCZYK', NULL, 'Java');
+INSERT INTO Pracownicy VALUES (8, 'Radosław', 'ZIELIŃSKI', NULL, 'Java');
+INSERT INTO Pracownicy VALUES (9, 'Robert', 'WOŹNIAK', NULL, 'Java');
+INSERT INTO Pracownicy VALUES (10, 'Robert', 'SZYMAŃSKI', 34, 'Tester');
+INSERT INTO Pracownicy VALUES (11, 'Radosław', 'DĄBROWSKI', 35, NULL);
+INSERT INTO Pracownicy VALUES (12, 'Robert', 'KOZŁOWSKI', NULL, 'UX');
+INSERT INTO Pracownicy VALUES (13, 'Joanna', 'MAZUR', 26, 'UX');
+INSERT INTO Pracownicy VALUES (14, 'Radosław', 'JANKOWSKI', 27, 'UX');
+INSERT INTO Pracownicy VALUES (15, 'Patryk', 'LEWANDOWSKI', 28, NULL);
+INSERT INTO Pracownicy VALUES (16, NULL, 'ZIELIŃSKI', 28, NULL);
+INSERT INTO Pracownicy VALUES (17, 'Andrzej', 'WOŹNIAK', 31, NULL);
+INSERT INTO Pracownicy VALUES (18, 'Andrze', 'LEWANDOWSKI', 30, NULL);
+INSERT INTO Pracownicy VALUES (19, 'Roman', 'KOWALCZYK', 39, NULL);
+INSERT INTO Pracownicy VALUES (20, 'Ewa', 'WOŹNIAK', 31, NULL);
+
+-- 4.
+SELECT DISTINCT Imie
+FROM pracownicy;
+
+-- 5.
+SELECT DISTINCT Nazwisko
+FROM pracownicy;
+
+-- 6. 
+SELECT Kurs
+FROM pracownicy
+WHERE Nazwisko = 'Kowalczyk';
+
+-- 7. 
+SELECT *
+FROM pracownicy
+WHERE wiek IS NULL;
+
+-- 8. 
+SELECT Wiek
+FROM pracownicy
+WHERE Imie = 'Patryk';
+
+-- 9. 
+ALTER TABLE pracownicy RENAME TO Mentorzy;
