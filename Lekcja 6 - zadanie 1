@@ -41,3 +41,76 @@ RIGHT JOIN agents AS a
 ON c.AGENT_CODE = a.AGENT_CODE
 GROUP BY a.AGENT_CODE
 ORDER BY a.AGENT_CODE ASC;
+
+-- CROSS JOIN
+-- a. 
+SELECT c.CUST_CODE, a.AGENT_CODE
+FROM customer AS c
+CROSS JOIN agents AS a;
+
+-- b. 
+SELECT c.CUST_CODE, a.AGENT_CODE
+FROM customer AS c
+CROSS JOIN agents AS a
+WHERE c.WORKING_AREA = a.WORKING_AREA;
+
+-- c. 
+SELECT c.CUST_CODE, a.AGENT_CODE
+FROM customer AS c
+CROSS JOIN agents AS a
+WHERE c.WORKING_AREA != a.WORKING_AREA
+AND c.GRADE IS NOT NULL;
+
+-- UNION
+-- a. 
+SELECT AGENT_CODE AS ID, AGENT_NAME, 'Salesman' AS Rodzaj
+FROM agents
+UNION
+SELECT CUST_CODE AS ID, CUST_NAME AS Name, 'Customer' AS Rodzaj
+FROM customer
+WHERE WORKING_AREA = 'London';
+
+-- b. 
+SELECT ORD_DATE, AGENT_CODE, ORD_AMOUNT, 'MAX' AS Typ
+FROM orders
+WHERE (ORD_DATE, ORD_AMOUNT) IN (
+    SELECT ORD_DATE, MAX(ORD_AMOUNT)
+    FROM orders
+    GROUP BY ORD_DATE)
+UNION
+-- Najmniejsze zamówienia na dzień
+SELECT ORD_DATE, AGENT_CODE, ORD_AMOUNT, 'MIN' AS Typ
+FROM orders
+WHERE (ORD_DATE, ORD_AMOUNT) IN (
+    SELECT ORD_DATE, MIN(ORD_AMOUNT)
+    FROM orders
+    GROUP BY ORD_DATE)
+ORDER BY ORD_DATE;
+
+-- WITH
+-- a. 
+WITH londonstaff AS (
+    SELECT AGENT_CODE, AGENT_NAME, WORKING_AREA, COMMISSION
+    FROM agents
+    WHERE WORKING_AREA = 'London' AND COMMISSION > 0.14
+)
+SELECT * FROM londonstaff;
+
+-- b. 
+WITH gradecount AS (
+    SELECT GRADE, COUNT(*) AS liczba_klientow
+    FROM customer
+    GROUP BY GRADE
+)
+SELECT * FROM gradecount;
+
+-- c. 
+WITH total_per_dzien AS (
+    SELECT ORD_DATE,
+           COUNT(DISTINCT CUST_CODE) AS liczba_klientow,
+           AVG(ORD_AMOUNT) AS srednia_kwota,
+           SUM(ORD_AMOUNT) AS suma_kwot
+    FROM orders
+    GROUP BY ORD_DATE
+)
+SELECT * FROM total_per_dzien;
