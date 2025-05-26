@@ -1,0 +1,213 @@
+CREATE DATABASE Sklep_odziezowy;
+USE Sklep_odziezowy;
+
+-- 2
+CREATE TABLE Producenci (
+    id_producenta INT PRIMARY KEY AUTO_INCREMENT,
+    nazwa_producenta VARCHAR(100) NOT NULL UNIQUE,
+    adres_producenta VARCHAR(255) NOT NULL,
+    nip_producenta CHAR(10) NOT NULL UNIQUE CHECK (nip_producenta REGEXP '^[0-9]{10}$'),
+    data_podpisania_umowy DATE NOT NULL
+);
+
+-- 3
+CREATE TABLE Produkty (
+    id_produktu INT PRIMARY KEY AUTO_INCREMENT,
+    id_producenta INT NOT NULL,
+    nazwa_produktu VARCHAR(150) NOT NULL UNIQUE,
+    opis_produktu TEXT,
+    cena_netto_zakupu DECIMAL(10, 2) NOT NULL CHECK (cena_netto_zakupu >= 0),
+    cena_brutto_zakupu DECIMAL(10, 2) NOT NULL,
+    cena_netto_sprzedazy DECIMAL(10, 2) NOT NULL CHECK (cena_netto_sprzedazy >= 0),
+    cena_brutto_sprzedazy DECIMAL(10, 2) NOT NULL,
+    procent_vat_sprzedazy DECIMAL(5, 2) NOT NULL);
+    
+    -- 4
+    CREATE TABLE Zamowienia (
+    id_zamowienia INT PRIMARY KEY AUTO_INCREMENT,
+    id_klienta INT NOT NULL,
+    id_produktu INT NOT NULL,
+    data_zamowienia DATE NOT NULL);
+    
+    -- 5
+    CREATE TABLE Klienci (
+    id_klienta INT PRIMARY KEY AUTO_INCREMENT,
+    imie VARCHAR(50) NOT NULL,
+    nazwisko VARCHAR(80) NOT NULL,
+    adres VARCHAR(255) NOT NULL
+);
+
+-- 6
+-- Produkty → Producenci
+ALTER TABLE Produkty
+ADD CONSTRAINT fk_producent
+FOREIGN KEY (id_producenta)
+REFERENCES Producenci(id_producenta);
+
+-- Zamowienia → Produkty
+ALTER TABLE Zamowienia
+ADD CONSTRAINT fk_produkt
+FOREIGN KEY (id_produktu)
+REFERENCES Produkty(id_produktu);
+
+-- Zamowienia → Klienci
+ALTER TABLE Zamowienia
+ADD CONSTRAINT fk_klient
+FOREIGN KEY (id_klienta)
+REFERENCES Klienci(id_klienta);
+
+-- 7
+-- a. 
+INSERT INTO Producenci (nazwa_producenta, adres_producenta, nip_producenta, data_podpisania_umowy) VALUES
+('TechPol Sp. z o.o.', 'Warszawa, ul. Słoneczna 10', '1234567890', '2023-01-10'),
+('BioMedica SA', 'Kraków, ul. Zdrowa 5', '2345678901', '2022-06-15'),
+('AGRO-EKO', 'Poznań, ul. Wiejska 20', '3456789012', '2021-11-01'),
+('NovaIT', 'Gdańsk, ul. Nowa 45', '4567890123', '2024-02-05');
+
+-- b. 
+INSERT INTO Klienci (imie, nazwisko, adres) VALUES
+('Anna', 'Nowak', 'Warszawa, ul. Lipowa 1'),
+('Jan', 'Kowalski', 'Kraków, ul. Wiślana 2'),
+('Maria', 'Zielińska', 'Poznań, ul. Leśna 3'),
+('Tomasz', 'Wiśniewski', 'Gdańsk, ul. Morska 4'),
+('Katarzyna', 'Wójcik', 'Wrocław, ul. Kwiatowa 5'),
+('Piotr', 'Kamiński', 'Łódź, ul. Łąkowa 6'),
+('Magdalena', 'Lewandowska', 'Szczecin, ul. Polna 7'),
+('Paweł', 'Dąbrowski', 'Lublin, ul. Słoneczna 8'),
+('Joanna', 'Jankowska', 'Rzeszów, ul. Parkowa 9'),
+('Michał', 'Mazur', 'Katowice, ul. Górna 10');
+
+-- c. 
+INSERT INTO Produkty (id_producenta, nazwa_produktu, opis_produktu, cena_netto_zakupu, cena_brutto_zakupu, cena_netto_sprzedazy, cena_brutto_sprzedazy, procent_vat_sprzedazy) VALUES
+(1, 'Laptop A1', 'Laptop 15 cali', 3000.00, 3690.00, 3400.00, 4182.00, 23),
+(1, 'Monitor X2', 'Monitor 24 cale', 700.00, 861.00, 800.00, 984.00, 23),
+(1, 'Klawiatura QWERTY', 'Klawiatura mechaniczna', 150.00, 184.50, 200.00, 246.00, 23),
+(2, 'Suplement Omega 3', 'Kwasy tłuszczowe', 30.00, 32.40, 40.00, 43.20, 8),
+(2, 'Witamina D', 'Suplement diety', 20.00, 21.60, 30.00, 32.40, 8),
+(2, 'Tabletki Magnez B6', 'Na zmęczenie', 18.00, 19.44, 25.00, 27.00, 8),
+(3, 'Nawóz naturalny', 'Do roślin domowych', 10.00, 10.80, 15.00, 16.20, 8),
+(3, 'Ziemia ogrodowa 20L', 'Uniwersalna', 12.00, 12.96, 20.00, 21.60, 8),
+(3, 'Doniczka ceramiczna', 'Średnia', 8.00, 9.84, 15.00, 18.45, 23),
+(3, 'Opryskiwacz ręczny', '2L pojemności', 25.00, 30.75, 35.00, 43.05, 23),
+(4, 'Smartwatch Neo', 'Smartwatch z GPS', 400.00, 492.00, 500.00, 615.00, 23),
+(4, 'Słuchawki BT', 'Bluetooth 5.0', 100.00, 123.00, 150.00, 184.50, 23),
+(4, 'Ładowarka USB-C', 'Szybkie ładowanie', 50.00, 61.50, 80.00, 98.40, 23),
+(1, 'Mysz optyczna', 'Mysz bezprzewodowa', 60.00, 73.80, 90.00, 110.70, 23),
+(2, 'Krople na odporność', 'Ziołowe krople', 22.00, 23.76, 30.00, 32.40, 8),
+(3, 'Zraszacz trawnika', 'Obrotowy', 45.00, 55.35, 65.00, 79.95, 23),
+(1, 'Pendrive 64GB', 'USB 3.0', 25.00, 30.75, 35.00, 43.05, 23),
+(4, 'Powerbank 10000mAh', 'Szybkie ładowanie', 90.00, 110.70, 120.00, 147.60, 23),
+(2, 'Suplement C+Zinc', 'Na odporność', 28.00, 30.24, 38.00, 41.04, 8),
+(3, 'Łopata ogrodowa', 'Stal nierdzewna', 60.00, 73.80, 90.00, 110.70, 23);
+
+-- d. 
+INSERT INTO Zamowienia (id_klienta, id_produktu, data_zamowienia) VALUES
+(1, 1, '2024-05-01'),
+(2, 5, '2024-05-02'),
+(3, 9, '2024-05-03'),
+(4, 2, '2024-05-04'),
+(5, 13, '2024-05-05'),
+(6, 7, '2024-05-06'),
+(7, 14, '2024-05-07'),
+(8, 17, '2024-05-08'),
+(9, 10, '2024-05-09'),
+(10, 19, '2024-05-10');
+
+-- 8
+SELECT *
+FROM produkty as p
+LEFT JOIN producenci AS pr
+ON p.id_producenta = pr.id_producenta
+WHERE p.id_producenta = 1;
+
+-- 9
+SELECT *
+FROM produkty as p
+LEFT JOIN producenci AS pr
+ON p.id_producenta = pr.id_producenta
+WHERE p.id_producenta = 1
+ORDER BY p.nazwa_produktu;
+
+-- 10
+SELECT AVG(p.cena_netto_sprzedazy)
+FROM produkty as p
+LEFT JOIN producenci AS pr
+ON p.id_producenta = pr.id_producenta
+WHERE p.id_producenta = 1
+ORDER BY p.nazwa_produktu;
+
+-- 11
+WITH Produkty_Producent AS (
+  SELECT
+    p.*,
+    ROW_NUMBER() OVER (ORDER BY cena_netto_sprzedazy ASC) AS rn,
+    COUNT(*) OVER () AS total_count
+  FROM Produkty p
+  WHERE p.id_producenta = 1
+)
+
+SELECT
+  id_produktu,
+  nazwa_produktu,
+  cena_netto_sprzedazy,
+  CASE
+    WHEN rn <= total_count / 2 THEN 'Tanie'
+    ELSE 'Drogie'
+  END AS grupa
+FROM Produkty_Producent
+ORDER BY cena_netto_sprzedazy ASC;
+
+-- 12
+SELECT p.nazwa_produktu
+FROM produkty AS p
+JOIN zamowienia AS z
+ON p.id_produktu = z.id_produktu;
+
+-- 13
+SELECT p.*
+FROM produkty AS p
+JOIN zamowienia AS z
+ON p.id_produktu = z.id_produktu
+LIMIT 5;
+
+-- 14
+SELECT SUM(p.cena_brutto_sprzedazy)
+FROM zamowienia AS z
+JOIN produkty AS p
+ON z.id_produktu = p.id_produktu;
+
+-- 15
+SELECT z.*, p.nazwa_produktu
+FROM zamowienia AS z
+JOIN produkty AS p
+ON z.id_produktu = p.id_produktu
+ORDER BY z.data_zamowienia DESC;
+
+-- 16
+SELECT *
+FROM Produkty
+WHERE
+  id_produktu IS NULL OR
+  id_producenta IS NULL OR
+  nazwa_produktu IS NULL OR
+  opis_produktu IS NULL OR
+  cena_netto_zakupu IS NULL OR
+  cena_brutto_zakupu IS NULL OR
+  cena_netto_sprzedazy IS NULL OR
+  cena_brutto_sprzedazy IS NULL OR
+  procent_vat_sprzedazy IS NULL;
+  
+-- 17
+SELECT p.nazwa_produktu, p.cena_netto_sprzedazy, COUNT(z.id_zamowienia) AS liczba_zamowien
+FROM Zamowienia AS z
+JOIN Produkty AS p ON z.id_produktu = p.id_produktu
+GROUP BY p.id_produktu, p.nazwa_produktu, p.cena_netto_sprzedazy
+ORDER BY liczba_zamowien DESC
+LIMIT 1;
+
+-- 18
+SELECT data_zamowienia, COUNT(*) AS liczba_zamowien
+FROM Zamowienia
+GROUP BY data_zamowienia
+ORDER BY liczba_zamowien DESC
+LIMIT 1;
