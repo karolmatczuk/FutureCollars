@@ -87,3 +87,14 @@ def wypisz_ranking(panstwa):
     print("\n--- Państwa według PKB per capita (PPP) ---")
     for p in sorted(panstwa, key=lambda x: x["pkb_per_capita"], reverse=True):
         print(f"{p['nazwa']}: {p['pkb_per_capita']} USD")
+
+# Zadanie 7
+def policz_litery_cyfry(napis):
+    liczba_liter = 0
+    liczba_cyfr = 0
+    for znak in napis:
+        if znak.isalpha():
+            liczba_liter += 1
+        elif znak.isdigit():
+            liczba_cyfr += 1
+    return liczba_liter, liczba_cyfr
