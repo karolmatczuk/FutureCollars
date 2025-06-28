@@ -40,3 +40,50 @@ def ktore_urodziny(lata_urodzenia):
         wiek = aktualny_rok - rok
         urodziny.append(wiek)
     return urodziny
+
+# Zadanie 6
+panstwo1 = {
+    "nazwa": "Polska",
+    "powierzchnia": 312696,
+    "ludnosc": 37950000,
+    "pkb_per_capita": 42000
+}
+
+panstwo2 = {
+    "nazwa": "Niemcy",
+    "powierzchnia": 357022,
+    "ludnosc": 83020000,
+    "pkb_per_capita": 58000
+}
+
+panstwo3 = {
+    "nazwa": "Czechy",
+    "powierzchnia": 78866,
+    "ludnosc": 10700000,
+    "pkb_per_capita": 46000
+}
+
+panstwo4 = {
+    "nazwa": "Norwegia",
+    "powierzchnia": 385207,
+    "ludnosc": 5470000,
+    "pkb_per_capita": 83000
+}
+
+def wypisz_ranking(panstwa):
+    print("\n--- Państwa według powierzchni ---")
+    for p in sorted(panstwa, key=lambda x: x["powierzchnia"], reverse=True):
+        print(f"{p['nazwa']}: {p['powierzchnia']} km2")
+
+    print("\n--- Państwa według liczby ludności ---")
+    for p in sorted(panstwa, key=lambda x: x["ludnosc"], reverse=True):
+        print(f"{p['nazwa']}: {p['ludnosc']} osób")
+
+    print("\n--- Państwa według gęstości zaludnienia ---")
+    for p in sorted(panstwa, key=lambda x: x["ludnosc"]/x["powierzchnia"], reverse=True):
+        gestosc = p["ludnosc"]/p["powierzchnia"]
+        print(f"{p['nazwa']}: {gestosc:.2f} osób/km2")
+
+    print("\n--- Państwa według PKB per capita (PPP) ---")
+    for p in sorted(panstwa, key=lambda x: x["pkb_per_capita"], reverse=True):
+        print(f"{p['nazwa']}: {p['pkb_per_capita']} USD")
