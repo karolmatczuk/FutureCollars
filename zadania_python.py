@@ -20,3 +20,8 @@ def liczby_pierwsze(n):
         if jest_pierwsza:
             l_pierwsze.append(num)
     return l_pierwsze
+
+# Zadanie 3
+def posortuj_liste(lista):
+    lista.sort()
+    return lista
