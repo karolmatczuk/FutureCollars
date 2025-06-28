@@ -98,3 +98,10 @@ def policz_litery_cyfry(napis):
         elif znak.isdigit():
             liczba_cyfr += 1
     return liczba_liter, liczba_cyfr
+
+# Zadanie 8
+def czy_palindromy(napis1, napis2):
+    def jest_palindromem(s):
+        return s == s[::-1]
+    
+    return jest_palindromem(napis1), jest_palindromem(napis2)
