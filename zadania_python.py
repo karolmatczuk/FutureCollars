@@ -25,3 +25,18 @@ def liczby_pierwsze(n):
 def posortuj_liste(lista):
     lista.sort()
     return lista
+
+# Zadanie 4
+def czesc_wspolna(lista1, lista2):
+    return list(set(lista1) & set(lista2))
+
+# Zadanie 5
+from datetime import datetime
+
+def ktore_urodziny(lata_urodzenia):
+    aktualny_rok = datetime.now().year
+    urodziny = []
+    for rok in lata_urodzenia:
+        wiek = aktualny_rok - rok
+        urodziny.append(wiek)
+    return urodziny
