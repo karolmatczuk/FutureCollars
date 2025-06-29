@@ -105,3 +105,91 @@ def czy_palindromy(napis1, napis2):
         return s == s[::-1]
     
     return jest_palindromem(napis1), jest_palindromem(napis2)
+
+# Zadanie 9
+def wzor():
+    total_lines = 9
+    for i in range(1, total_lines + 1):
+        if i <= 5:
+            num_elements = i
+        else:
+            num_elements = total_lines - i + 1
+        for j in range(num_elements):
+            if j % 2 == 0:
+                print('*', end=' ')
+            else:
+                print('$', end=' ')
+        print()
+
+# Zadanie 10
+import numpy as np
+
+def posortowana_roznica_numpy(lista1, lista2):
+    arr1 = np.array(lista1)
+    arr2 = np.array(lista2)
+
+    maska = ~np.isin(arr1, arr2)
+    filtr = arr1[maska]
+
+    unikalne, licznik = np.unique(filtr, return_counts=True)
+
+    indeksy_sort = np.argsort(licznik)
+
+    wynik = unikalne[indeksy_sort]
+
+    return wynik.tolist()
+
+# Zadanie 11
+def fibonacci(n):
+    if n == 0:
+        return 0
+    elif n == 1:
+        return 1
+    else:
+        a, b = 0, 1
+        for _ in range(2, n + 1):
+            a, b = b, a + b
+        return b
+
+# Zadanie 12
+osoby = {}
+
+def dodaj_osobe(imie, wzrost):
+    global osoby
+    osoby[imie] = wzrost
+
+# Dodaje 5 wpisów
+dodaj_osobe(imie="Ala", wzrost=165)
+dodaj_osobe(imie="Bartek", wzrost=180)
+dodaj_osobe(imie="Celina", wzrost=172)
+dodaj_osobe(imie="Darek", wzrost=177)
+dodaj_osobe(imie="Ela", wzrost=160)
+
+# Zadanie 13
+def sortuj_wg_wzrostu(slownik):
+    posortowane = sorted(slownik.items(), key=lambda x: x[1], reverse=True)
+    imiona = [k for k, v in posortowane]
+    return imiona
+
+# Zadanie 14
+def potegowanie(a, b):
+    # Przypadek zerowego wykładnika
+    if b == 0:
+        return 1
+    # Przypadek dodatni
+    elif b > 0:
+        return a * potegowanie(a, b - 1)
+    # Przypadek ujemny
+    else:
+        return 1 / potegowanie(a, -b)
+
+# Zadanie 15
+def najczesciej_wystepujacy(lista):
+    licznik = {}
+    for x in lista:
+        if x in licznik:
+            licznik[x] += 1
+        else:
+            licznik[x] = 1
+    najczestszy = max(licznik, key=licznik.get)
+    return najczestszy
